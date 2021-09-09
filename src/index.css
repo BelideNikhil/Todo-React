@@ -1,13 +1,123 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+*{
+  box-sizing: border-box;
+  padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Varela Round', sans-serif;
+}
+:root{
+  --bg-color:#BFCBA8;
+  --text-color:#464F41;
+  --border-color:#5B8A72;
+  --ternary-color:whitesmoke;
+  --shadow:rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+body{
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  max-height: max-content;
+  position: relative;
+}
+.container{
+  max-width: 600px;
+  margin: auto;
+  padding: 2rem;
+}
+li{
+  list-style: none;
+}
+input:focus,select:focus{
+  outline: none;
+}
+/*  */
+h1{
+  border-bottom: 4px solid var(--border-color);
+  margin: 0 1rem 2rem 1rem;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: var(--shadow)
+}
+.dataContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3rem 0.5rem;
+}
+input,.add-btn,.selectOptions{
+  border: none;
+  margin: 0;
+  padding: 6px 10px;
+  box-shadow: var(--shadow)
+}
+.form,.selectOptions{
+  border: 3px solid var(--border-color);
+}
+.add-btn:hover{
+  background-color: var(--text-color);
+  color: var(--ternary-color);
+}
+.add-btn{
+  color: var(--text-color);
+  background-color: var(--ternary-color);
+  cursor: pointer;
+}
+.selectOptions{
+  margin: 0.5rem;
+  font-family: 'Varela Round', sans-serif;
+}
+.todo-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.7rem;
+  border: 3px solid var(--text-color);
+  box-shadow: var(--shadow)
+}
+.todo-item{
+  display: flex;
+  flex: 1;
+  height: max-content;
+  padding: 0 10px;
+  font-size: large;
+  font-weight: 700;
+}
+.complete-btn{
+  background-color: #4AA96C;
+  padding: 10px;
+  border: none;
+}
+.delete-btn{
+  background-color: #FF884B;
+  padding: 10px;
+  border: none;
+}
+.complete-btn:hover,.delete-btn:hover{
+  transform: scale(1.1);
+  color: var(--ternary-color);
+  cursor: pointer;
+}
+.completed{
+  text-decoration: line-through;
+}
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 10px;
+    width: 100%;
+    height: 2rem;
+    line-height: 2rem;
+    display: flex;
+    justify-content: center;
+    text-shadow: var(--shadow);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@media screen and (max-width:500px) {
+  .dataContainer{
+    display: flex;
+    flex-direction: column;
+  }
 }
