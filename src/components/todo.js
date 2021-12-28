@@ -1,28 +1,43 @@
-import React from "react";
-let Todo=({todos,setTodos,todo})=>{
-    let completeHandler=()=>{
-        // map over tods=os and change its status-property-value to opposite of what it was
-        setTodos(todos.map(eachTodo=>{
-            if(eachTodo.id===todo.id){
-                return{
-                    ...eachTodo,status:!eachTodo.status
-                }
-            }
-            return eachTodo
-        }))
+import React,{useState} from "react";
+import {todoDB} from '../Firebase/config'
+
+
+export default function Todo ({todos,todo}){
+    const [edit,setEdit]=useState(false)
+    const [newData,setNewData]=useState(todo.task)
+
+    const completeHandler=async(id)=>{
+        try{
+            await todoDB.collection('ToDos').doc(id).set({...todo,status:!todo.status})
+        }catch(err){
+            console.log(err)
+        }
     }
-    let deleteHandler=()=>{
-        // filtering over todos array and passing the object whose id matches
-        setTodos(todos.filter(eachTodo=>eachTodo.id!==todo.id))
+
+    const deleteHandler=async(id)=>{
+        try{
+            await todoDB.collection('ToDos').doc(id).delete()
+        }catch(err){
+            console.log(err)
+        }
     }
-    return(
+
+    const editHandler=async(id)=>{
+        setEdit(prev=>!prev)
+        try{
+            await todoDB.collection('ToDos').doc(id).set({...todo,task:newData})
+        }catch(err){
+            console.log(err)
+        }  
+    }
+    const each_to_do=(
         <div className="todo-container">
-            {/* adding and removing class-completed based on click operation */}
-            <li className={`todo-item ${todo.status?"completed":""}`}>{todo.task}</li>
-            <button className="complete-btn" onClick={completeHandler}><i className="fas fa-check"></i></button>
-            <button className="delete-btn" onClick={deleteHandler}><i className="fas fa-trash-alt"></i></button>
+            {edit?<input type="text" value={newData} onChange={(e)=>setNewData(e.target.value)} className="edit-input"></input>:<li className={`todo-item ${todo.status?"completed":""}`}>{todo.task}</li>}
+            <button className="edit-btn" onClick={()=>editHandler(todo.id)}>{edit?<i className="fas fa-save"></i>:<i className="fas fa-edit"></i>}</button>
+            <button className="complete-btn" onClick={()=>completeHandler(todo.id)} disabled={edit}><i className="fas fa-check"></i></button>
+            <button className="delete-btn" onClick={()=>deleteHandler(todo.id)} disabled={edit}><i className="fas fa-trash-alt"></i></button>
         </div>
     )
+    return each_to_do
 }
 
-export default Todo

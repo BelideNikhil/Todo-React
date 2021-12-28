@@ -1,7 +1,9 @@
 import React from "react";
+import {todoDB} from '../Firebase/config'
 
-let Forms=({text,setText,todos,setTodos,setSelectOption,toggleButton,setToggleButton})=>{
-    // to enable diable button
+
+export default function Forms({text,setText,setSelectOption,toggleButton,setToggleButton}){
+    
     function onInputhandler(e){
         if((e.target.value).length>0){
             setText(e.target.value)
@@ -11,15 +13,18 @@ let Forms=({text,setText,todos,setTodos,setSelectOption,toggleButton,setToggleBu
             setToggleButton(true)
         }
     }
-    function submitToDoHandler(e){
+    const submitToDoHandler=async(e)=>{
         e.preventDefault()
-        setTodos([...todos,{task:text,id:Math.random()*100,status:false}])
+        let addToDo={task:text,status:false}
+        try{
+            await todoDB.collection('ToDos').add(addToDo)
+        }
+        catch(err){
+            console.log(err)
+        }
         // restetting states
         setText("")
         setToggleButton(true)
-    }
-    function options(e){
-        setSelectOption(e.target.value)
     }
 
     return (
@@ -28,7 +33,7 @@ let Forms=({text,setText,todos,setTodos,setSelectOption,toggleButton,setToggleBu
                 <input type="text" onChange={onInputhandler} value={text} required />
                 <button onClick={submitToDoHandler} type="submit" className="add-btn" disabled={toggleButton}><i className="fas fa-plus-square"></i></button>
             </form>
-            <select onChange={options} className="selectOptions">
+            <select onChange={(e)=>setSelectOption(e.target.value)} className="selectOptions">
                 <option value="All">All</option>
                 <option value="Completed">Completed</option>
                 <option value="Pending">Pending</option>
@@ -36,5 +41,3 @@ let Forms=({text,setText,todos,setTodos,setSelectOption,toggleButton,setToggleBu
         </div>
     )
 }
-
-export default Forms
