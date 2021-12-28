@@ -12,7 +12,7 @@
   --ternary-color:whitesmoke;
   --shadow:rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
-body{
+#root{
   background-color: var(--bg-color);
   color: var(--text-color);
   display: flex;
@@ -33,7 +33,6 @@ li{
 input:focus,select:focus{
   outline: none;
 }
-/*  */
 h1{
   border-bottom: 4px solid var(--border-color);
   margin: 0 1rem 2rem 1rem;
@@ -85,23 +84,33 @@ input,.add-btn,.selectOptions{
   font-size: large;
   font-weight: 700;
 }
-.complete-btn{
-  background-color: #4AA96C;
+.edit-btn,.complete-btn,.delete-btn{
   padding: 10px;
   border: none;
+}
+.edit-btn{
+  background-color: rgb(224, 116, 116);
+}
+.complete-btn{
+  background-color: #4AA96C;
 }
 .delete-btn{
   background-color: #FF884B;
-  padding: 10px;
-  border: none;
 }
-.complete-btn:hover,.delete-btn:hover{
+.complete-btn:hover,.delete-btn:hover,.edit-btn:hover{
   transform: scale(1.1);
   color: var(--ternary-color);
   cursor: pointer;
 }
 .completed{
   text-decoration: line-through;
+}
+.edit-input{
+  width: 100%;
+  padding: 10px;
+}
+.zero-tasks{
+  text-align: center;
 }
 footer {
     position: absolute;
@@ -115,9 +124,15 @@ footer {
     text-shadow: var(--shadow);
 }
 
-@media screen and (max-width:500px) {
+@media screen and (max-width:430px) {
+  .App{
+    width: 90%;
+  }
   .dataContainer{
     display: flex;
     flex-direction: column;
+  }
+  .container{
+    padding: 2rem 0.5rem;
   }
 }
