@@ -1,10 +1,5 @@
-import react from "react";
-
-
-let Footer=()=>{
+export default function Footer(){
     return(
-        <footer><strong>Made by Nikhil using React.</strong></footer>
+        <footer><strong>Made using React & FIrebase!</strong></footer>
     )
 }
-
-export default Footer
