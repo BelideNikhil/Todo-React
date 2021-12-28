@@ -7,4 +7,5 @@ In the project directory, you can run:
 
 ### `npm start`
 [Using Local Storage](https://tasks-reactjs.netlify.app/)
+
 [Using Firebase](https://firebase-2do.netlify.app/)
